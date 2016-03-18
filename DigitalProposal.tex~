@@ -1,0 +1,137 @@
+\documentclass[conference]{IEEEtran}
+\usepackage{blindtext, graphicx}
+\ifCLASSINFOpdf
+\else
+ \fi
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+\begin{document}
+
+\title{High Speed Energy-Efficient Convolutional Neural Network with Approximate Computing}
+
+\author{\IEEEauthorblockN{Keertana Settaluri}
+\IEEEauthorblockA{School of Electrical and Computer Engineering\\
+University of California, Berkeley\\
+Email: ksettaluri6@berkeley.edu}
+\and
+\IEEEauthorblockN{Emily Naviasky}
+\IEEEauthorblockA{School of Electrical and Computer Engineering\\
+University of California, Berkeley\\
+Email: enaviasky@berkeley.edu}
+}
+
+\maketitle
+
+\begin{abstract}
+%\boldmath
+\blindtext[1]
+\end{abstract}
+
+\begin{IEEEkeywords}
+IEEEtran, journal, \LaTeX, paper, template.
+\end{IEEEkeywords}
+
+\IEEEpeerreviewmaketitle
+
+\section{Introduction}
+	Neural networks have gained immense popularity in recent decades, primarily because of their utility in applications such as computer vision, speech recognition, and natural language processing. Creating a hardware implementation of a neural network, however, is extremely difficult due to the sheer amount of computation required. For example, AlexNet [1] uses 2.3 million weights, and requires 666 million MACs per 227x227 image. VGG16 [2] uses 14.7 million weights, and requires a staggering 15.3 billion MACs per 224x224 image. Understandably, a significant amount of time and research is being used to develop a more efficient, less power intensive, and faster hardware implementation of a neural network.\\
+	\indent Although low power implementations have been developed, they are usually at the expense of generalization, wherein specialized dataflow and hardware are developed to minimize data movement and skip unnecessary read or write operations, as in the case of Eyeriss [3]. *This hardware specific optimization limits the application to only the one in which it was designed. *
+
+\subsection{Approximate Computing}
+	Hardware specific approximate computing is an optimization approach that efficiently reduces the precision of multiply and accumulate operations in order to speed up a system and save power. \\
+	\indent Many approximate adders and multipliers have been designed to reduce energy at the expense of precision. The Approximate Mirror Adder (AMA), for example, removes transistors at the logic level, thus reducing node capacitance while inducing error in the output, and predicts up to 69\% [4] savings in power when four out of 16 bits are implemented using an AMA. Voltage Overscaling (VOS) is another technique that reduces the supply voltage while trading off for lower SNR. Several papers have explored VOS designed circuits, and one decoder implementation claims a 22.5\% savings in energy while minimally affecting SNR [5]. \\
+	\indent Considerably less effort has been put into designing approximate multipliers. Previous work explores removing the partial products of the least significant half of the bits in a multiplier and replacing them with 1's or 0's depending on the two multiplicands. Simulations in 0.18-$\mu$ technology estimate a minimum of 50\% savings in power dissipation while still having considerable accuracy [6].
+
+% positioning is not used. Most IEEE journals use top floats exclusively.
+% Note that, LaTeX2e, unlike IEEE journals, places footnotes above bottom
+% floats. This can be corrected via the \fnbelowfloat command of the
+% stfloats package.
+
+\section{Problem Description}
+%-is it worth doing approximate computing in CNN?
+CNN are a error tolerant application that is prevalent in many power conscious applications even though it requires a large amount of computation to train and use. It is an easy decision to want to trade some of that unnecessary accuracy for power savings and faster computation. However, accuracy for speed and power is not a decision made in a vacuum. Area on silicon is expensive and an entire block for approximate hardware would have to have significant enough power savings to be worth the area. <Was there more reasons besides area? I can't remember> It is the goal of this paper to explore whether CNN are an appropriate application for approximate computing in a quantitative way. We will begin <fuck not using I or we, fix it later> by examining CNNs and approximate computing in more detail so that we can <talk intelligently about them later.>
+\subsection{Convolutional Neural Nets}
+%-What is a CNN? 
+CNNs address the problem common to using neural nets in computer vision, which is that it requires an infeasible number of neural nodes<?> in order to process a very small image if each pixel is given it's own node. <lots of nn stuff to ask keertana>
+%	-CNNs are for vision
+%	-how they differ from normal NNs (course thing/papers on CNNs)
+%-algorithms and noise that are typically in the system
+%-FOM, how their goodness is judged(error in NNs)
+\subsection{Approximate Computing}
+%-What is approximate computing?
+There are many implementations of approximate adders and multipliers, or approximate computing can be implemented on a architectural level for application specific computing blocks. Approximate adders vary from using voltage scaling without scaling clock frequency to algorithmically ignoring lower and less important bits[][][]. Approximate multipliers might implement normal multiplier topologies with approximate adders[], but those are generally worse than multipliers that implement approximation at the multiplication level<not a huge fan of that wording>[]. Architectural level approximate computing has been used in applications that respond well to early termination when an answer is close enough, such as <sorting?>[] and Support Vector Machines[].
+
+%	-Describe approx comp we want to use
+%		-this one is superior cuz BLAH
+<We> will examine approximate adders and multipliers rather than architecture level approximation. Some of the best performing adders and multipliers in recent publications are <blahhhhhhh, lower-part-or-adders[bio-inspired], ETA[06138614,05403865]?> 
+%	-what are some typical numbers for improvement
+%		-they saw X power/ speed improvement vs error
+%	-how we are going to model and judge FOM
+%-paper on approximate CNN
+%-They look like a good fit + decent ending sentence
+
+\section{Solution}
+%-Why should approximate computing in CNNs work?
+%	-quote some power numbers or something
+%-judge workspace
+%		-other works for X loss in accuracy see gain in power/speed
+%		-graph power vs accuracy/ accuracy necessary
+%			-how much accuracy does a NN need anyway?
+%-paper on approximate CNN
+%	-more depth, depending on how useful it was
+%-What we hope to find
+%	-Power and speed improvement is significant versus loss of accuracy
+%	-Reiterate main question: is it worth doing approximate computing in CNN?
+
+\section{Description of Experimental Work}
+%-How are we going to judge worth or not worth
+%-Experimental setup
+%	-verilog for power numbers, size, error rate
+%-python, lanet (reference more course thing), blah blah don’t wanna train one
+%	-plug in error rate/introduce same amount of error
+%-see if shit still works
+%	- judge goodness
+%-FOM
+%	-what are we doing in particular to judge power/speed/usability of NN
+
+%*** IDK ABOUT THIS PARAGRAPH *** As seen in most approximate adder and multipliers, the extent to which power is saved is proportionally related to the error injected into the system. The most common metrics for quantifying these errors are error rate (ER) and error significance (ES), which represent the fraction of incorrect outputs versus total number of inputs and the numerical difference from an incorrect and correct output, respectively [7]. 
+
+\subsection{Approximate Computing in Neural Networks}
+	Neural networks provide the perfect platform for approximate computing, as they have an innate tolerance to imperfections in precision. Hardware approximate computing however, has for the most part been left unexplored. With training and inference taking significant computational time and effort, most of the focus in efficient neural network design has centered on implementing faster approximate algorithms, like, for example sparse convolutional neural networks [7], as opposed to hardware.\\
+	\indent Cellular devices make use of this. Present Google  
+	Present how its necessary for hardware. This is being done in phones, but if theres a way to do processing faster more capabilities on the phone can be a thing.
+	This paper presents this blah blah 
+	Make sure to mention possible generalization of the system. 
+\section{Conclusion}
+%-WOOOO HOPE IT WORKS
+
+\appendices
+\section{Proof of the First Zonklar Equation}
+\blindtext
+
+% use section* for acknowledgement
+\section*{Acknowledgment}
+
+
+The authors would like to thank...
+
+\ifCLASSOPTIONcaptionsoff
+  \newpage
+\fi
+
+\begin{thebibliography}{1}
+
+\bibitem{IEEEhowto:kopka}
+H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
+  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+
+\end{thebibliography}
+
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{picture}}]{John Doe}
+\blindtext
+\end{IEEEbiography}
+
+\end{document}
+
+
+
