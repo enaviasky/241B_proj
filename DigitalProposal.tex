@@ -28,29 +28,31 @@ Email: enaviasky@berkeley.edu}
 \end{abstract}
 
 \begin{IEEEkeywords}
-IEEEtran, journal, \LaTeX, paper, template.
+Convolutional Neural Network, Approximate Computing, Energy Efficiency
 \end{IEEEkeywords}
 
 \IEEEpeerreviewmaketitle
 
 \section{Introduction}
 	Neural networks have gained immense popularity in recent decades, primarily because of their utility in applications such as computer vision, speech recognition, and natural language processing. Creating a hardware implementation of a neural network, however, is extremely difficult due to the sheer amount of computation required. For example, AlexNet [1] uses 2.3 million weights, and requires 666 million MACs per 227x227 image. VGG16 [2] uses 14.7 million weights, and requires a staggering 15.3 billion MACs per 224x224 image. Understandably, a significant amount of time and research is being used to develop a more efficient, less power intensive, and faster hardware implementation of a neural network.\\
-	\indent Although low power implementations have been developed, they are usually at the expense of generalization, wherein specialized dataflow and hardware are developed to minimize data movement and skip unnecessary read or write operations, as in the case of Eyeriss [3]. *This hardware specific optimization limits the application to only the one in which it was designed. *
+	\indent Although low power implementations have been developed, they are usually at the expense of generalization, wherein specialized dataflow and hardware are developed to minimize data movement and skip unnecessary read or write operations, as in the case of Eyeriss [3]. This hardware specific optimization limits the application to only the one in which it was designed.
 
 \subsection{Approximate Computing}
 	Hardware specific approximate computing is an optimization approach that efficiently reduces the precision of multiply and accumulate operations in order to speed up a system and save power. \\
 	\indent Many approximate adders and multipliers have been designed to reduce energy at the expense of precision. The Approximate Mirror Adder (AMA), for example, removes transistors at the logic level, thus reducing node capacitance while inducing error in the output, and predicts up to 69\% [4] savings in power when four out of 16 bits are implemented using an AMA. Voltage Overscaling (VOS) is another technique that reduces the supply voltage while trading off for lower SNR. Several papers have explored VOS designed circuits, and one decoder implementation claims a 22.5\% savings in energy while minimally affecting SNR [5]. \\
 	\indent Considerably less effort has been put into designing approximate multipliers. Previous work explores removing the partial products of the least significant half of the bits in a multiplier and replacing them with 1's or 0's depending on the two multiplicands. Simulations in 0.18-$\mu$ technology estimate a minimum of 50\% savings in power dissipation while still having considerable accuracy [6].
 
-% positioning is not used. Most IEEE journals use top floats exclusively.
-% Note that, LaTeX2e, unlike IEEE journals, places footnotes above bottom
-% floats. This can be corrected via the \fnbelowfloat command of the
-% stfloats package.
-
 \subsection{Approximate Computing in Neural Networks}
-	Neural networks provide the perfect platform for approximate computing, as they have an innate tolerance to imperfections in precision. Hardware approximate computing however, has for the most part been left unexplored. With training and inference taking significant computational time and effort, most of the focus in efficient neural network design has centered on implementing faster approximate algorithms, like, for example sparse convolutional neural networks [7], as opposed to hardware.\\
-	\indent Cellular devices make use of this. Present Google  
-	Present how its necessary for hardware. This is being done in phones, but if theres a way to do processing faster more capabilities on the phone can be a thing.
+	Neural networks provide the perfect platform for approximate computing, as they have an innate resilience to imperfections in precision. Implementations such as AxNN [7] and Liu's Deep Neural Network [8] show varying degrees of power savings for minimal loss in accuracy. AxNN claims up to 1.9X energy benefits for no loss in output quality, and an even greater factor of 2.3X when 7.5\% loss is permissible at the output through the use of approximate neurons and incremental retraining [7]. Both of these utilizations however, utilize a single approximation algorithm. \\
+	
+	Shit you need to mention:\\
+		1) Phones use neural networks \\
+		2) Phones use approx in conv neural nets to carry out their baby implementations\\
+		3) Neural net applications important \\
+		4) convNets are used in computer vision\\
+		
+	\indent The need for faster and more efficient methods of utilizing neural networks is immense. In particular, convolutional neural networks (convNets) are widely used in many computer vision applications such as pattern recognition and image classification. Current smart phone technology makes use of these networks in order to implement deep learning. Though smart phone In applications where hardware capabilities are limited, such as in cellular devices, the efficient application of a neural network could open the door to more useful processing.  \\
+	Present how its necessary for hardware. This is being done in phones, but if theres a way to do processing faster more capabilities on the phone can be a thing. 
 	This paper presents this blah blah 
 	Make sure to mention possible generalization of the system. 
 	
@@ -98,14 +100,6 @@ There are many implementations of approximate adders and multipliers. Approximat
 -FOM
 	-what are we doing in particular to judge power/speed/usability of NN
 
-%*** IDK ABOUT THIS PARAGRAPH *** As seen in most approximate adder and multipliers, the extent to which power is saved is proportionally related to the error injected into the system. The most common metrics for quantifying these errors are error rate (ER) and error significance (ES), which represent the fraction of incorrect outputs versus total number of inputs and the numerical difference from an incorrect and correct output, respectively [7]. 
-
-\subsection{Approximate Computing in Neural Networks}
-	Neural networks provide the perfect platform for approximate computing, as they have an innate tolerance to imperfections in precision. Hardware approximate computing however, has for the most part been left unexplored. With training and inference taking significant computational time and effort, most of the focus in efficient neural network design has centered on implementing faster approximate algorithms, like, for example sparse convolutional neural networks [7], as opposed to hardware.\\
-	\indent Cellular devices make use of this. Present Google  
-	Present how its necessary for hardware. This is being done in phones, but if theres a way to do processing faster more capabilities on the phone can be a thing.
-	This paper presents this blah blah 
-	Make sure to mention possible generalization of the system. 
 \section{Conclusion}
 \blindtext
 
