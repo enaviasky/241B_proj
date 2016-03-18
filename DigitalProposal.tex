@@ -54,9 +54,11 @@ IEEEtran, journal, \LaTeX, paper, template.
 	This paper presents this blah blah 
 	Make sure to mention possible generalization of the system. 
 	
+	
+	
 \section{Problem Description}
 %-is it worth doing approximate computing in CNN?
-CNN are a error tolerant application that is prevalent in many power conscious applications even though it requires a large amount of computation to train and use. It is an easy decision to want to trade some of that unnecessary accuracy for power savings and faster computation. However, accuracy for speed and power is not a decision made in a vacuum. Area on silicon is expensive and an entire block for approximate hardware would have to have significant enough power savings to be worth the area. <Was there more reasons besides area? I can't remember> It is the goal of this paper to explore whether CNN are an appropriate application for approximate computing in a quantitative way. We will begin <fuck not using I or we, fix it later> by examining CNNs and approximate computing in more detail so that we can <talk intelligently about them later.>
+CNN are a error tolerant application that are prevalent in many power conscious applications even though they require a large amount of computation to train and use. It is an easy decision to want to trade some of that unnecessary accuracy for power savings and faster computation. However, accuracy for speed and power is not a decision made in a vacuum. Area on silicon is expensive and an entire block for approximate hardware would have to have significant enough power savings to be worth the area. <Was there more reasons besides area? I can't remember> It is the goal of this paper to explore whether CNN are an appropriate application for approximate computing in a quantitative way. We will begin <fuck not using I or we, fix it later> by examining CNNs and approximate computing in more detail so that we can <talk intelligently about them later.>
 \subsection{Convolutional Neural Nets}
 %-What is a CNN? 
 CNNs address the problem common to using neural nets in computer vision, which is that it requires an infeasible number of neural nodes<?> in order to process a very small image if each pixel is given it's own node. <lots of nn stuff to ask keertana>
@@ -70,57 +72,61 @@ There are many implementations of approximate adders and multipliers, or approxi
 
 %	-Describe approx comp we want to use
 %		-this one is superior cuz BLAH
-<We> will examine approximate adders and multipliers rather than architecture level approximation. Some of the best performing adders and multipliers in recent publications are <blahhhhhhh, lower-part-or-adders[bio-inspired], ETA[06138614,05403865]?> 
+<We> will examine approximate adders and multipliers rather than architecture level approximation. Some of the best performing adders and multipliers in recent publications are <blahhhhhhh, lower-part-or-adders[bio-inspired], ETA[06138614,05403865]?>. 
+
 %	-what are some typical numbers for improvement
 %		-they saw X power/ speed improvement vs error
 %	-how we are going to model and judge FOM
 %-paper on approximate CNN
+<Does this belong here?>Other works that deal specifically with neural nets[axnn] have seen around 2x improvement in power with little degradation in accuracy, just by changing bit-width in the computation<meh wording>. 
 %-They look like a good fit + decent ending sentence
 
 \section{Solution}
 %-Why should approximate computing in CNNs work?
 %	-quote some power numbers or something
+
+
 %-judge workspace
 %		-other works for X loss in accuracy see gain in power/speed
 %		-graph power vs accuracy/ accuracy necessary
 %			-how much accuracy does a NN need anyway?
 %-paper on approximate CNN
 %	-more depth, depending on how useful it was
+Axnn examined approximate computing in neural net application. They saw about 2x power improvement for less than percent quality loss. In particular axnn noted that neural nets are a uniquely appropriate application for approximate computing. They used the fact that certain neurons in a net are less sensitive than others when determining the correct answer than others. In addition, the way that neural nets are trained naturally corrects for and decreases noise and error. Axnn also found that conscious selection of less sensitive nodes does result in lower power per accuracy loss, but that the benefit reflects a similar decrease in power per accuracy as uniform approximation. Therefore, we could apply their selection later and get even better improvements later.<keertana, halp, what are words? do words make sense> [axnn] 
+
+Axnn saw improvements using bit-width variation to impose approximation<uhgwords>. <XXX> adder saw <YYY> improvement over typical methods such as <omg I know nothing>.<We> expect to see even further improvements testing other methods of more <error tolerant?> approximation computing.
+
+
+
 %-What we hope to find
 %	-Power and speed improvement is significant versus loss of accuracy
 %	-Reiterate main question: is it worth doing approximate computing in CNN?
 
 \section{Description of Experimental Work}
-%-How are we going to judge worth or not worth
+From the above exploration of CNNs and AC, <we> are convinced that applying AC to CNN is will result in significant power and speed savings with tolerable accuracy loss. For this project, <we> will explore the specific power savings and speed increase from implementing <XXX> approximate adder <more detail> and multipliers <more detail> as well as approximate adder and multiplier implemented using voltage scaling [][][]. 
 %-Experimental setup
 %	-verilog for power numbers, size, error rate
+<We> will implement approximate adders and multipliers in 65nm<is that what we are using in this class?> technology, and use simulations to calculate the average power per operation.
 %-python, lanet (reference more course thing), blah blah don’t wanna train one
 %	-plug in error rate/introduce same amount of error
 %-see if shit still works
 %	- judge goodness
+CNNs are error-tolerant; it is difficult to judge the accuracy of them without observing the change in classification accuracy over a set of test data. It can also be extremely time intensive to create and train a CNN. Thus, we are going to use the framework already in place called <Cafe?> and a pre-trained CNN. We will artificially introduce error to the software calculation that matches that from our simulated hardware, then see the number of adds and multiplications performed and the accuracy of the net as a whole.
+%-How are we going to judge worth or not worth
 %-FOM
 %	-what are we doing in particular to judge power/speed/usability of NN
+We expect our CNN to be able to tolerate some percentage of error in each node's arithmetic, and we are interested to see what percentage error of CNN classification this results in. <The following may or may not be something we actually want to say> We cannot find any other work that examines how error per node propagates to the accuracy of the CNN. This is probably due to the accuracy of CNNs being largely dependent on a large number of factors including data set, topology of the net, order and algorithm of training, and etc. Accuracy of the nodes does not necessarily map from one CNN to another, but it could be useful to see how much error it introduces to the same net with and without AC.
+
+
+
 
 %*** IDK ABOUT THIS PARAGRAPH *** As seen in most approximate adder and multipliers, the extent to which power is saved is proportionally related to the error injected into the system. The most common metrics for quantifying these errors are error rate (ER) and error significance (ES), which represent the fraction of incorrect outputs versus total number of inputs and the numerical difference from an incorrect and correct output, respectively [7]. 
 
-\subsection{Approximate Computing in Neural Networks}
-	Neural networks provide the perfect platform for approximate computing, as they have an innate tolerance to imperfections in precision. Hardware approximate computing however, has for the most part been left unexplored. With training and inference taking significant computational time and effort, most of the focus in efficient neural network design has centered on implementing faster approximate algorithms, like, for example sparse convolutional neural networks [7], as opposed to hardware.\\
-	\indent Cellular devices make use of this. Present Google  
-	Present how its necessary for hardware. This is being done in phones, but if theres a way to do processing faster more capabilities on the phone can be a thing.
-	This paper presents this blah blah 
-	Make sure to mention possible generalization of the system. 
 \section{Conclusion}
 %-WOOOO HOPE IT WORKS
+% At what point is this useful?
+We expect to see power and speed improvement by performing more <error-tolerant?> approximate computation into CNN application.
 
-\appendices
-\section{Proof of the First Zonklar Equation}
-\blindtext
-
-% use section* for acknowledgement
-\section*{Acknowledgment}
-
-
-The authors would like to thank...
 
 \ifCLASSOPTIONcaptionsoff
   \newpage
