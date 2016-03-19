@@ -16,14 +16,9 @@
 
 \author{Keertana Settaluri,
         Emily Naviasky\\% <-this % stops a space
-        Department of Electrical and Computer Engineering, UC Berkeley
-\thanks{M. Shell is with the Department
-of Electrical and Computer Engineering, Georgia Institute of Technology, Atlanta,
-GA, 30332 USA e-mail: (see http://www.michaelshell.org/contact.html).}% <-this % stops a space
-\thanks{J. Doe and J. Doe are with Anonymous University.}% <-this % stops a space
-\thanks{Manuscript received April 19, 2005; revised January 11, 2007.}}
+        Department of Electrical and Computer Engineering, UC Berkeley}
 
-\markboth{Journal of \LaTeX\ Class Files,~Vol.~6, No.~1, January~2007}%
+\markboth{Journal of EE241B ,~Vol.~$\pi$, No.~0, March~2016}%
 {Shell \MakeLowercase{\textit{et al.}}: Bare Demo of IEEEtran.cls for Journals}
 
 \maketitle
@@ -41,40 +36,38 @@ Convolutional Neural Network, Approximate Computing, Energy Efficiency
 \IEEEpeerreviewmaketitle
 
 \section{Introduction}
-\indent Deep neural networks have gained immense popularity in the recent decade, primarily in complex learning applications such as computer vision, speech recognition, and natural language processing. However, as problems become more complex, the size of neural networks and the sheer amount of computation required drastically increases. Understandably, a significant amount of time and research is being used to develop a more efficient, less power intensive, and faster hardware implementation of neural networks. One attempt to decrease the massive increase of neurons is to change the structure of the network. For example, convolutional neural networks, which have gained popularity recently in image and signal processing applications, were developed to deal with data, such as a picture, that would otherwise require an infeasible number of neurons in a traditional neural network. However, convolutional neural networks are still extremely computationally intensive.[class] \\
+\indent Deep neural networks have gained immense popularity in the recent decade, primarily in complex learning applications such as computer vision, speech recognition, and natural language processing. However, as problems become more complex, the size of neural networks and the sheer amount of computation required drastically increases. Understandably, a significant amount of time and research is being used to develop a more efficient, less power intensive, and faster hardware implementation of neural networks. One attempt to decrease the massive increase of neurons is to change the structure of the network. For example, convolutional neural networks, which have gained popularity recently in image and signal processing applications, were developed to deal with data, such as a picture, that would otherwise require an infeasible number of neurons in a traditional neural network. However, convolutional neural networks are still extremely computationally intensive.[1] \\
 	
-	\indent Convolutional neural networks (convNets), in particular, are widely used in many computer vision applications such as pattern recognition and image classification. Current smart phone applications, such as Google translate [9], make use of these networks through the use of a mobile processor's SIMD instructions. In power conscious applications such as these, using specialized hardware would enable processors not necessarily built for convNets to compute faster and more energy efficient computations. Low power neural network hardware accelerators have been developed, but their speed usually comes at the expense of generalization, as in the case of Eyeriss[eyriss]. This hardware specific optimization limits the application to only the one in which it was designed. \\	
+	\indent Convolutional neural networks (convNets), in particular, are widely used in many computer vision applications such as pattern recognition and image classification. Current smart phone applications, such as Google translate [2], make use of these networks through the use of a mobile processor's SIMD instructions. In power conscious applications such as these, using specialized hardware would enable processors not necessarily built for convNets to compute faster and more energy efficient computations. Low power neural network hardware accelerators have been developed, but their speed usually comes at the expense of generalization, as in the case of Eyeriss[3]. This hardware specific optimization limits the application to only the one in which it was designed. \\	
 	
 	\indent ConvNets have an innate resilience to imperfections in precision due to the nature of the noisy data which they are used to interpret. Hardware specific approximate computing is an optimization approach that efficiently reduces the precision of multiply and accumulate operations in order to speed up a system and save power. Thus, several works have investigated the use of approximate computing to trade unnecessary accuracy for power and speed in neural networks. This work seeks to investigate different implementations of approximate computing applied specifically to convNets. 
 
 \section{Problem Description}
-	\indent Using a convNet to classify a single, small image can be very computationally expensive. A typical convNet, such as AlexNet [kriz], uses 2.3 million weights, and requires 666 million MACs per 227x227 image. A even more intensive implementation, VGG16 [simoy], uses 14.7 million weights, and requires a staggering 15.3 billion MACs per 224x224 image.\\
+	\indent Using a convNet to classify a single, small image can be very computationally expensive. A typical convNet, such as AlexNet [1], uses 2.3 million weights, and requires 666 million MACs per 227x227 image. A even more intensive implementation, VGG16 [4], uses 14.7 million weights, and requires a staggering 15.3 billion MACs per 224x224 image.\\
 	
 %-is it worth doing approximate computing in CNN?
-	\indent It is an easy decision to want to trade some of the unnecessary accuracy in such a computationally expensive algorithm for power savings and faster computation. However, accuracy for speed and power is not a decision made in a vacuum. Area on silicon is expensive and an entire block for approximate hardware would have to have significant enough power savings to be worth the area. It is the goal of this paper to explore whether CNN are an appropriate application for approximate computing in a quantitative way. We will begin <fuck not using I or we, fix it later> by examining CNNs and approximate computing in more detail so that we can <talk intelligently about them later.>
+	\indent It is an easy decision to want to trade some of the unnecessary accuracy in such a computationally expensive algorithm for power savings and faster computation. However, accuracy for speed and power is not a decision made in a vacuum. Area on silicon is expensive and an entire block for approximate hardware would have to have significant enough power savings to be worth the area. It is useful to explore whether convNets are an appropriate application for approximate computing in a quantitative way. This paper will begin by examining convNets and approximate computing in more detail.
 
 \subsection{Convolutional Neural Nets}
-%-What is a CNN? 
-TODO NNS
-	\indent Neural networks are BLAH training backprop meshes of nodes\\
+	\indent Neural networks are a classification algorithm well suited to noisy data. They are composed of a highly connected mesh of nodes, where each connection represents some weight. Each node sums up the weighted combination of the nodes from the previous layer. If the weights sum above a certain threshold function then the node is activated and contributes its weight to the next layer. An inactivate node has a weight of 0. In this way, neural nets can represent very complex functions, and the more layers, nodes, and interconnections there are, the more complex the representable functions are, but the more training is necessary. Training of neural nets is typically done using back propagation. Depending on the correctness of an output, training revisits all of the activated interconnects and negatively or positively reinforces the incorrect or correct answer by changing the mesh weights. \\
 	
 TODO CNNs
 	\indent ConvNets like general neural networks are used to deal with data that is infeasible for normal neural net arrangements. Neurons in a convNets are arranged in three dimensions, which reduce the number of neurons and weights, making them better able to deal with matrix shaped data such as images. BLAH three stages, pooling and stuff. draw parallel between whatever stage is like a normal net.  \\
 	
-	\indent ConvNets already implement approximate computing at a software level[9]. On a hardware level, most research in to power savings and approximate computation of neural networks focus on general neural nets as opposed to convNets, but have found a marked improvement in power and speed without sacrificing significant accuracy of the net. Implementations such as AxNN [axnn] show varying degrees of power savings for minimal loss in accuracy. AxNN uses back propagation--- an algorithm used to change weights when training neural nets--- to identify less important nodes and decrease their accuracy by shortening the bit-width used in computation. This paper claims to achieve up to 1.9X energy benefits for less than 1\% in output quality, and an even greater factor of 2.3X when 7.5\% loss is permissible at the output[]. This conclusion validates that approximate computing can result in significant power savings. However, there are many approximate computing algorithms, besides reducing bit-width, that show even more promise for power to accuracy trade-off.
+	\indent ConvNets already implement approximate computing at a software level[2]. On a hardware level, most research in to power savings and approximate computation of neural networks focus on general neural nets as opposed to convNets, but have found a marked improvement in power and speed without sacrificing significant accuracy of the net. Implementations such as AxNN [6] show varying degrees of power savings for minimal loss in accuracy. AxNN uses back propagation--- an algorithm used to change weights when training neural nets--- to identify less important nodes and decrease their accuracy by shortening the bit-width used in computation. This paper claims to achieve up to 1.9X energy benefits for less than 1\% in output quality, and an even greater factor of 2.3X when 7.5\% loss is permissible at the output[6]. This conclusion validates that approximate computing can result in significant power savings. However, there are many approximate computing algorithms, besides reducing bit-width, that show even more promise for power to accuracy trade-off.
 
 \subsection{Approximate Computing}
 
-	\indent Hardware specific approximate computing is an optimization approach that efficiently reduces the precision of an operation in order to speed up a system and save power. Approximate computing can occur at a single operation level or at a algorithmic level. Algorithm level approximate computing has been used in applications that respond well to early termination when an answer is close enough, such as digital filters[Roy] and Support Vector Machines[han]. This paper implement approximate computing at an operational level.\\
+	\indent Hardware specific approximate computing is an optimization approach that efficiently reduces the precision of an operation in order to speed up a system and save power. Approximate computing can occur at a single operation level or at a algorithmic level. Algorithm level approximate computing has been used in applications that respond well to early termination when an answer is close enough, such as digital filters[7] and Support Vector Machines[8]. This paper implement approximate computing at an operational level.\\
 	
 
 	\subsubsection{Error Quantification}
-	\indent 	There are several metrics for quantifying the error from approximate computing. Error rate (ER) is the probability of an error occurring and is common among many approximate algorithms [7]. There are several methods of calculating the error significance (ES) of the error. Error mean (EM), error mean square, hamming distance, error min/max, or some combination thereof are typical methods of characterizing ES, depending on what is most important to the application. The following analysis of approximate operations will use error rate and error mean. For a neural net application, the thresholding function inside of each neuron eliminates some small constant error, but is unable to deal with infrequent but large errors. In addition, because each neuron adds up a large number of weighted inputs, a small Error mean is desirable, because even if error is frequent, the many additions will average the error and put the error close to the mean.<KEERTANA, DOES THAT MAKE SENSE?>  Therefore, a higher ER is acceptable for a neural net application, but ES must be smaller. \\	
+	\indent 	There are several metrics for quantifying the error from approximate computing. Error rate (ER) is the probability of an error occurring and is common among many approximate algorithms [6]. There are several methods of calculating the error significance (ES) of the error. Error mean (EM), error mean square, hamming distance, error min/max, or some combination thereof are typical methods of characterizing ES, depending on what is most important to the application[8]. The following analysis of approximate operations will use error rate and error mean. For a neural net application, the thresholding function inside of each neuron eliminates some small constant error, but is unable to deal with infrequent but large errors. In addition, because each neuron adds up a large number of weighted inputs, a small Error mean is desirable, because even if error is frequent, the many additions will average the error and put the error close to the mean.<KEERTANA, DOES THAT MAKE SENSE?>  Therefore, a higher ER is acceptable for a neural net application, but ES must be smaller. \\	
 	
 	\subsubsection{Approximate Adders}
-	\indent Many implementations of approximate adders exist. Voltage scaling--- without simultaneously scaling frequency to ensure timing is met--- can introduce error to both adders and multipliers. Voltage scaled approximation is an effective way of decreasing power but needs to be carefully designed to ensure that significant bits behave well under scaled voltage conditions or it runs the risk of introducing very large ES.[han] In a similar vein, Speculative Latency Adders[25 in Han] allows delay to dictate error. Speculative latency adders rely on the fact that the probability of a worst case carry chain is small and will terminate early. This results in a speed increase but without much power saving, especially since this method is usually paired with error recovery.[han] The rest of this section examines adders with logic level error as opposed to transistor level error such as Error Tolerant Adders[zhu] and Lower-part-OR adders[bio]. \\
-	\indent Error Tolerant Adders divide the adder into subsections and cut the carry propagation chain between those[]. Some of the error induced by ignoring carries is corrected in subsequent versions of the Error Tolerant Adders by taking into account just the upper bits of the previous subsection[han 27-30]. Akin to the Error Tolerant Adders, the Dithering Adder[han 33] cuts the carry chain, but alternates the replacement carry-in after each addition. This alternates whether the addition is an over or under approximation each time and makes the Dithering Adder good for accumulation. The error rate of Error Tolerant Adders is between 20-5\% (depending on various options) and no mention is made of EM, but the power advantage is not as good as other options with a power saving of 50\% compared to a typical adder, presumably because the answer is calculated in half the time.
-	\indent The Lower-part-OR (LPO) takes removal of lower bit carries to an extreme[bio]. The LPO adder defines some number of lower bits and uses OR instead of XOR. No carries are propagated in these lower bits; only a single `and` is performed on the most significant bits of the lower-part to choose a carry-in for the upper part. The paper[bio] does not explore power savings, but the complete lack of carry propagation in the lower bits suggests somewhat significant power savings compared to other approximate adders that propagate carry bits through the lower bits. The interesting part of this approximate adder is that the ER is extremely high and the minimum and maximum error increase with longer lower-part. However, the EM is completely independent of the word length or the lower-part length. The probability and magnitude of error in all bits except the lowest is equal and thus the EM only -0.25. The lower power and low EM of this adder make it particularly appropriate for neural nets, and the paper[bio] even test their adder on a neural net for face recognition. They found that the neural net could classify well with all of its adders approximating the lowest 9 of a 13 bit number. These characteristics make LPO a very good choice for a convNet application.\\
+	\indent Many implementations of approximate adders exist. Voltage scaling--- without simultaneously scaling frequency to ensure timing is met--- can introduce error to both adders and multipliers. Voltage scaled approximation is an effective way of decreasing power but needs to be carefully designed to ensure that significant bits behave well under scaled voltage conditions or it runs the risk of introducing very large ES.[8] In a similar vein, Speculative Latency Adders[9] allows delay to dictate error. Speculative latency adders rely on the fact that the probability of a worst case carry chain is small and will terminate early. This results in a speed increase but without much power saving, especially since this method is usually paired with error recovery.[8] The rest of this section examines adders with logic level error as opposed to transistor level error such as Error Tolerant Adders[10][11] and Lower-part-OR adders[12]. \\
+	\indent Error Tolerant Adders divide the adder into subsections and cut the carry propagation chain between those[10]. Some of the error induced by ignoring carries is corrected in subsequent versions of the Error Tolerant Adders by taking into account just the upper bits of the previous subsection[11]. Akin to the Error Tolerant Adders, the Dithering Adder[13] cuts the carry chain, but alternates the replacement carry-in after each addition. This alternates whether the addition is an over or under approximation each time and makes the Dithering Adder good for accumulation. The error rate of Error Tolerant Adders is between 20-5\% (depending on various options) and no mention is made of EM, but the power advantage is not as good as other options with a power saving of 50\% compared to a typical adder, presumably because the answer is calculated in half the time.
+	\indent The Lower-part-OR (LPO) takes removal of lower bit carries to an extreme[12]. The LPO adder defines some number of lower bits and uses OR instead of XOR. No carries are propagated in these lower bits; only a single `and` is performed on the most significant bits of the lower-part to choose a carry-in for the upper part. The paper[12] does not explore power savings, but the complete lack of carry propagation in the lower bits suggests somewhat significant power savings compared to other approximate adders that propagate carry bits through the lower bits. The interesting part of this approximate adder is that the ER is extremely high and the minimum and maximum error increase with longer lower-part. However, the EM is completely independent of the word length or the lower-part length. The probability and magnitude of error in all bits except the lowest is equal and thus the EM only -0.25. The lower power and low EM of this adder make it particularly appropriate for neural nets, and the paper[12] even test their adder on a neural net for face recognition. They found that the neural net could classify well with all of its adders approximating the lowest 9 of a 13 bit number. These characteristics make LPO a very good choice for a convNet application.\\
 	  
 	\subsubsection{Approximate Multipliers}
 	\indent Most research in approximate multipliers extends from existing approximate adder implementations. Solely replacing every partial product with any version of an approximate adder, however, creates too much error. Error correction methods or different, multiplier specific implementations have been proven to be more effective. For example, a multiplier with configurable partial recovery error detection was created by using an input pre-processing approximate adder for all partial products. This adder exchanges input bits in the case where one input bit is a 0 and the other is a 1. This stacking provides a means to cut the carry propagation chain, predicting up to a 69\% savings in power and up to 20\% decrease in delay with near negligible decrease in accuracy  [ApproMultiplierNov26Camera]. Compared to other approximate multipliers however, their error detection logic adds more area overhead.\\
@@ -87,105 +80,54 @@ TODO CNNs
 	\indent Approximate multipliers might implement normal multiplier topologies with approximate adders[], but those are generally worse than multipliers that implement approximation at the multiplication level<not a huge fan of that wording>[]. Architectural \\
 
 \section{Implementation}
-	\indent Combining convNets and approximate computing has already been shown to save power and improve speed. AxNN[axnn] examined approximate computing in neural net application and saw about x2 power improvement for less than 1\% quality loss. In particular AxNN noted that neural nets are a uniquely appropriate application for approximate computing. They used the fact that certain neurons in a net are less sensitive than others when determining the correct answer than others. In addition, the way that neural nets are trained naturally corrects for and decreases noise and error. AxNN also found that selection of only less sensitive nodes results in lower power per accuracy loss. This improvement is constant over error rate. TODO REWORD
+	\indent Combining convNets and approximate computing has already been shown to save power and improve speed. AxNN[6] examined approximate computing in neural net application and saw about x2 power improvement for less than 1\% quality loss. In particular AxNN noted that neural nets are a uniquely appropriate application for approximate computing. They used the fact that certain neurons in a net are less sensitive than others when determining the correct answer than others. In addition, the way that neural nets are trained naturally corrects for and decreases noise and error. AxNN also found that selection of only less sensitive nodes results in a nearly constant improvement in power per accuracy loss[6]. This suggest that we can apply approximate computing to all of the nodes regardless of their sensitivity, and apply more careful neuron selection afterwards for further improvement.
 They also tested decreasing accuracy uniformly over nodes and found that power per error rate is decreased. However, the accuracy vs. power savings of both insensitive and uniform node selection decrease at a similar rate. Therefore, 
-Therefore, power savings vs. error rate can be evaluated by applying approximation uniformly over neurons and the AxNN algorithmic selection of nodes would result in an improved result. [axnn] \\ 
+Therefore, power savings vs. error rate can be evaluated by applying approximation uniformly over neurons and the AxNN algorithmic selection of nodes would result in an improved result. [6] \\ 
 
 
 	\indent Axnn saw improvements using bit-width variation to impose approximation. Bit-width approximation is a very power efficient approximation for computing, however, it introduces a very large mean error. Lower-Part-OR Adder is more power expensive but introduces only the addition of one or gate per lower bit. It's mean error, however, is a very small constant. Replacing bit-width approximation with Lower-Part-OR Adders should result in significantly higher accuracy which should allow the net to be pushed to lower power consumption for the same error rate. The same argument can be made of the XXX multiplier. BLALALALALALAL TODO\\
 
 	\indent We will implement Lower-Part-OR approximate adders as well as XXX multiplier in 32nm LP CMOS technology, and use Synthesis simulations to calculate average power per operation and confirm mean error. We will also implement an accurate adder and multiplier as well as a  bit-width varying approximate adder to compare performance metrics.\\
 
-	\indent ConvNets are error-tolerant; it is difficult to judge the accuracy of them without testing data in the net and observing the change in  the accuracy with which the data is classified. We are going to use the small, practical, and well-established convolutional neural net, LeNet, which is a small architecture from the 1980s that is used to recognize handwritten digits. TODO MORE LENET GRADIENT DESCENT OR SOMETHING In addition there is a deep learning python framework from UC Berkeley already in place called Caffe. We will adapt LeNet in Caffe, artificially introducing error into neuron operations to match the approximation method from our simulated hardware. Using Caffe we will explore introducing error into different layers of the convolutional net, to see if one, two, or all of the layers are equally error tolerant. By varying the accuracy of the adders and multipliers in each neuron and testing data in the net we will develop a metric and determine the accuracy of the net as a whole.\\
+	\indent ConvNets are error-tolerant; it is difficult to judge the accuracy of them without testing data in the net and observing the change in  the accuracy with which the data is classified. We are going to use the small, practical, and well-established convolutional neural net, LeNet, which is a small architecture from the 1980s that is used to recognize handwritten digits. In addition there is a deep learning python framework from UC Berkeley already in place called Caffe. We will adapt LeNet in Caffe, artificially introducing error into neuron operations to match the approximation method from our simulated hardware. Using Caffe we will explore introducing error into different layers of the convolutional net, to see if one, two, or all of the layers are equally error tolerant. By varying the accuracy of the adders and multipliers in each neuron and testing data in the net we will develop a metric and determine the accuracy of the net as a whole.\\
 
 	\indent Again using python, the number of adds and multiplications performed will be compiled and combined with the power numbers from the hardware simulation to obtain a approximate power measurement. \\
 
 	\indent We expect our convNet to be able to tolerate some percentage of error in each node's arithmetic, and we are interested to see the relation between error of a neuron versus accuracy of the convNet as a whole. Despite the fact that most works do not focus on this relationship between neuron error and net accuracy, we feel that this is an interesting correlation to investigate. Which would enable generalizations and rules-of-thumb to be made about arithmetic error tolerance in many neural networks.\\
 
 \section{Conclusion}
-\blindtext
+	\indent ConvNets are a prevalent and power intensive application, but--- based on examination of previous work--- they are also an excellent application for approximate computation. Approximate computing has been shown to improve power and speed of computation, and implementing an LPO approximate adder and Broken-Array Booth Multiplier inside of neurons should result in an improvement over those factors. We will compare power using a synopsis generated model of approximate adders and multipliers, and judge error resiliency of the approximate net using Caffe. We expect an improvement in average power vs. accuracy of the net. 
 
-
-
-
-
-% if have a single appendix:
-%\appendix[Proof of the Zonklar Equations]
-% or
-%\appendix  % for no appendix heading
-% do not use \section anymore after \appendix, only \section*
-% is possibly needed
-
-% use appendices with more than one appendix
-% then use \section to start each appendix
-% you must declare a \section before using any
-% \subsection or using \label (\appendices by itself
-% starts a section numbered zero.)
-%
-
-
-\appendices
-\section{Proof of the First Zonklar Equation}
-Some text for the appendix.
-
-% use section* for acknowledgement
-\section*{Acknowledgment}
-
-
-The authors would like to thank...
-
-
-% Can use something like this to put references on a page
-% by themselves when using endfloat and the captionsoff option.
-\ifCLASSOPTIONcaptionsoff
-  \newpage
-\fi
-
-
-
-% trigger a \newpage just before the given reference
-% number - used to balance the columns on the last page
-% adjust value as needed - may need to be readjusted if
-% the document is modified later
-%\IEEEtriggeratref{8}
-% The "triggered" command can be changed if desired:
-%\IEEEtriggercmd{\enlargethispage{-5in}}
-
-% references section
-
-% can use a bibliography generated by BibTeX as a .bbl file
-% BibTeX documentation can be easily obtained at:
-% http://www.ctan.org/tex-archive/biblio/bibtex/contrib/doc/
-% The IEEEtran BibTeX style support page is at:
-% http://www.michaelshell.org/tex/ieeetran/bibtex/
-%\bibliographystyle{IEEEtran}
-% argument is your BibTeX string definitions and bibliography database(s)
-%\bibliography{IEEEabrv,../bib/paper}
-%
-% <OR> manually copy in the resultant .bbl file
-% set second argument of \begin to the number of references
-% (used to reserve space for the reference number labels box)
 \begin{thebibliography}{1}
 
-\bibitem{IEEEhowto:kopka}
-H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
-  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+\bibitem{}
+A. Krizhevsky, I. Sutskever, G. E. Hinton, "ImageNet Classification with Deep Convolutional Neural Networks," Neural Information Processing Systems, pp. 1097–1105, 2012.	
+\bibitem{} Otavio Good, “How Google Translate squeezes deep learning onto a phone,” Google Translate, July 29, 2015. http://googleresearch.blogspot.com/2015/07/how-google-translate-squeezes-deep.html
+\bibitem{} Y. Chen, T. Krishna , J. Emer, “Eyeriss: An Energy-Efficient Reconfigurable Accelerator for Deep Convolutional Neural Networks,” ISSCC 2016.
+\bibitem{} K. Simonyan, A. Zisserman, “Very Deep Convolutional Networks for Large- Scale Image Recognition,” CoRR, 2014. 
+\bibitem{} CONVNET
+\bibitem{} S. Venkataramani, “AxNN: Energy Efficient Neuromorphic System using Approximate Computing,” ISLPED 2014.
+\bibitem{} K. Roy, A. Raghunathan, “Approximate Computing: An Energy-Efficient Computing Technique for Error Resilient Applications,” Computer Society Annual Symp. on VLSI, 2015.
+\bibitem{} J. Han, M. Orshansky, “Approximate Computing: An Emerging Paradigm For Energy-Efficient Design,” ETS, 2013.
+\bibitem{} S.-L. Lu, “Speeding up processing with approximation circuits,”
+Computer, vol. 37, no. 3, pp. 67-73, 2004.
+\bibitem{}N. Zhu, W.L. Goh and K.S. Yeo, “An enhanced low-power high-speed adder for error-tolerant application,” in Proc. ISIC’09, pp. 69–72, 2009.
+\bibitem{}N. Zhu, W.L. Goh and K.S. Yeo, “Ultra low-power high-speed flexible probabilistic adder for error-tolerant applications,” in Proc. Intl. SoC Design Conf., pp. 393–396, 2011.
+\bibitem{}H.R. Mahdiani, A. Ahmadi, S.M. Fakhraie, C. Lucas, “Bio-inspired imprecise computational blocks for efficient vlsi implementation of soft-computing applications,” IEEE Trans. Circuits and Systems I: Regular
+Papers, vol. 57, no. 4, pp. 850-862, April 2010.
+\bibitem{}J. Miao, K. He, A. Gerstlauer and M. Orshansky “Modeling and synthesis of quality-energy optimal approximate adders,” in Proc.
+ICCAD, pp. 728, 2012.
+\bibitem{}ApproMultiplierNov26Camera
+\bibitem{}6714233
+\bibitem{}
+\bibitem{}
+\bibitem{}
+
 
 \end{thebibliography}
 
-% biography section
-% 
-% If you have an EPS/PDF photo (graphicx package needed) extra braces are
-% needed around the contents of the optional argument to biography to prevent
-% the LaTeX parser from getting confused when it sees the complicated
-% \includegraphics command within an optional argument. (You could create
-% your own custom macro containing the \includegraphics command to make things
-% simpler here.)
-%\begin{biography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{mshell}}]{Michael Shell}
-% or if you just want to reserve a space for a photo:
-
 \begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{Emily_Pic}}]{Emily Naviasky}
-\blindtext
+Emily Naviasky earned a Bachelors in Electrical Engineering and in Computer Science at the University of Maryland. Presently, she is a Graduate Student at UC Berkely interested in analog integrated circuits. She is upside-down, and has an innate resilience to imperfections in precision.
 \end{IEEEbiography}
 
 \begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{Keertana_Pic}}]{Keertana Settaluri}
