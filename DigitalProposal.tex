@@ -43,20 +43,8 @@ Convolutional Neural Network, Approximate Computing, Energy Efficiency
 	\indent Considerably less effort has been put into designing approximate multipliers. Previous work explores removing the partial products of the least significant half of the bits in a multiplier and replacing them with 1's or 0's depending on the two multiplicands. Simulations in 0.18-$\mu$ technology estimate a minimum of 50\% savings in power dissipation while still having considerable accuracy [6].
 
 \subsection{Approximate Computing in Neural Networks}
-	Neural networks provide the perfect platform for approximate computing, as they have an innate resilience to imperfections in precision. Implementations such as AxNN [7] and Liu's Deep Neural Network [8] show varying degrees of power savings for minimal loss in accuracy. AxNN claims up to 1.9X energy benefits for no loss in output quality, and an even greater factor of 2.3X when 7.5\% loss is permissible at the output through the use of approximate neurons and incremental retraining [7]. Both of these utilizations however, utilize a single approximation algorithm. \\
-	
-	Shit you need to mention:\\
-		1) Phones use neural networks \\
-		2) Phones use approx in conv neural nets to carry out their baby implementations\\
-		3) Neural net applications important \\
-		4) convNets are used in computer vision\\
-		
-	\indent The need for faster and more efficient methods of utilizing neural networks is immense. In particular, convolutional neural networks (convNets) are widely used in many computer vision applications such as pattern recognition and image classification. Current smart phone technology makes use of these networks in order to implement deep learning. Though smart phone In applications where hardware capabilities are limited, such as in cellular devices, the efficient application of a neural network could open the door to more useful processing.  \\
-	Present how its necessary for hardware. This is being done in phones, but if theres a way to do processing faster more capabilities on the phone can be a thing. 
-	This paper presents this blah blah 
-	Make sure to mention possible generalization of the system. 
-	
-	
+	Neural networks provide the perfect platform for approximate computing, as they have an innate resilience to imperfections in precision. Implementations such as AxNN [7] and Liu's Deep Neural Network [8] show varying degrees of power savings for minimal loss in accuracy. AxNN claims up to 1.9X energy benefits for no loss in output quality, and an even greater factor of 2.3X when 7.5\% loss is permissible at the output through the use of approximate neurons and incremental retraining [7]. Both of these utilizations however, utilize a single approximation algorithm. \\	
+	\indent The need for faster and more efficient methods of utilizing neural networks is immense. In particular, convolutional neural networks (convNets) are widely used in many computer vision applications such as pattern recognition and image classification. Current smart phone applications, such as Google translate [9], make use of these networks through the use of a mobile processor's SIMD instructions. In applications such as these, enabling specialized hardware would enable processors not necessarily built for neural networks to compute faster and more power efficient computations. The benefits, therefore, of implementing an approximate convolutional neural network are significant. \\
 	
 \section{Problem Description}
 %-is it worth doing approximate computing in CNN?
@@ -119,12 +107,9 @@ CNNs are error-tolerant; it is difficult to judge the accuracy of them without o
 %	-what are we doing in particular to judge power/speed/usability of NN
 We expect our CNN to be able to tolerate some percentage of error in each node's arithmetic, and we are interested to see what percentage error of CNN classification this results in. <The following may or may not be something we actually want to say> We cannot find any other work that examines how error per node propagates to the accuracy of the CNN. This is probably due to the accuracy of CNNs being largely dependent on a large number of factors including data set, topology of the net, order and algorithm of training, and etc. Accuracy of the nodes does not necessarily map from one CNN to another, but it could be useful to see how much error it introduces to the same net with and without AC.
 
-<<<<<<< HEAD
 \section{Conclusion}
 \blindtext
-=======
 
->>>>>>> 621641f5aff10c1c5beaa0072857a990f5f83647
 
 
 %*** IDK ABOUT THIS PARAGRAPH *** As seen in most approximate adder and multipliers, the extent to which power is saved is proportionally related to the error injected into the system. The most common metrics for quantifying these errors are error rate (ER) and error significance (ES), which represent the fraction of incorrect outputs versus total number of inputs and the numerical difference from an incorrect and correct output, respectively [7]. 
