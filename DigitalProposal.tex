@@ -117,23 +117,16 @@ PIKTURE
 	\indent Caffe uses 32 bit floating point operations. CNN usually normalize their data values between 0 and 1 to keep the floating point numbers small. This can improve the gradient decent operations<go check that wording, future emily> during training. However, this means that the net has to deal with floating point even during testing. It does depend on the processor, but generally, floating point operations are slower and more power hungry than integer operations. We assume that for our application, there is no approximation during testing. Since approximation occurs during testing only, and we have a good idea of the maximum values that we will see in our CNN, we can map from floating point to integer. Thus, we can take advantage of faster and lower power integer operations. We implemented a 32 x 32 bit integer approximate multiplier and a 32 bit approximate adder. We decided on a linear mapping of float to integer: $Integer=K*Float$ where $K$ is a power of 2 so that mapping can be implemented as shift. There are two sources of error from linearly mapping from floating point to integer. The first source of error is that floating point can represent extremely small values, but an integer mapping will have a quantization step size of $\frac{1}{K}$, so for a large K this will be small. The second error is that some input outside of our data set could conceivably overflow our integer mapping and cause a very large error. This an unlikely occurence, given that the mean and sigma of our data points are XXX(7.2?) and XXX, but the potential error is extremely large, so we gave ourselves buffer room and decided our upper range that we would represent was 16. Finally, we are doing signed 32 bit integer operations, so the largest number that we can represent is $2^{31}-1$, and we decided that the largest floating point that we want to represnt is 16. Therefore, we chose $K = 2^{28}$. We used this K value for our power calculations and for our error approximation.
 	
 \subsubsection{Introducing error into the CNN}
-The CNN has three layers that are addition and multiplication intensive: convolution layer 1 (conv1), convolution layer 2 (conv2), and the fully connnected layer (fc1). Due to the labrinthine nature of Caffe, it was outside of the scope of our project to implement an actual approximate adder and multiplier inside of the CNN code to judge the effect of approximation exactly. However, the python wrapper for Caffe is set up specifically to allow developers to examine and edit data in between layers.  We introduce an estimated percent error at each of these layers.
+The CNN has three layers that are addition and multiplication intensive: convolution layer 1 ($conv_1$), convolution layer 2 ($conv_2$), and the fully connnected layer ($fc_1$). Due to the labrinthine nature of Caffe, it was outside of the scope of our project to implement an actual approximate adder and multiplier inside of the CNN code to judge the effect of approximation exactly. However, the python wrapper for Caffe is set up specifically to allow developers to examine and edit data in between layers.  We introduce an estimated percent error at each of these layers.
 
-We obtain percent error individually for each layer, because each layer does a different number of operations on a different range of numbers. For example, to obtain error for the output of the conv2 layer we ran 10000 training images through the unapproximated CNN and collected 500000 conv2 weights and 500000 non-zero sample numbers from the output of the conv1 layer to serve as our expected input to the conv2 layer. (We ignored the output of the pool1 pooling layer, because all pooling does is throw away a fourth of the data.) Layer conv2 does a dot product between a weight matrix and a section of the image. Therefore, to obtain an approximation of multiplication error, we approximately multiplied a weight with a data point and measured percent error from the correct answer. To introduce that error into the CNN we randomly choose a percent error from the sample error that we just calculated for that layer and introduce it to the output of conv2 before it is passed on to the next layer.
-The addition approximation error is obtained similarly, but it takes into account that there are multiple additions. Due to the nature of the LOR approximate adder, the mean error is very low, so it is an advantage that there are multiple approximated additions. For example, the conv2 layer does a dot product between 25 numbers, so those 24 additions are likely to result in a lower error overall. To account for this, addition percent error is calculated by approximately adding 25 numbers for both conv1 and conv2 and adding 80 for fc1. To make sure that the numbers are the correct size, the sample numbers which are added in this case are collected inputs to a layer multiplied by random weights of that layer. The percent error is obtained from these multiple additions and is introduced in between layers in the same way as the multiply.<might need to clarify again>
+We obtain percent error individually for each layer, because each layer does a different number of operations on a different range of numbers. For example, to obtain error for the output of the $conv_2$ layer we ran 10000 training images through the unapproximated CNN and collected 500000 $conv_2$ weights and 500000 non-zero sample numbers from the output of the $conv_1$ layer to serve as our expected input to the $conv_2$ layer. (We ignored the output of the $pool_1$ pooling layer, because all pooling does is throw away a fourth of the data.) Layer $conv_2$ does a dot product between a weight matrix and a section of the image. Therefore, to obtain an approximation of multiplication error, we approximately multiplied a weight with a data point and measured percent error from the correct answer. To introduce that error into the CNN we randomly choose a percent error from the sample error that we just calculated for that layer and introduce it to the output of $conv_2$ before it is passed on to the next layer.
+The addition approximation error is obtained similarly, but it takes into account that there are multiple additions. Due to the nature of the LOR approximate adder, the mean error is very low, so it is an advantage that there are multiple approximated additions. For example, the $conv_2$ layer does a dot product between 25 numbers, so those 24 additions are likely to result in a lower error overall. To account for this, addition percent error is calculated by approximately adding 25 numbers for both $conv_1$ and $conv_2$ and adding 80 for $fc_1$. To make sure that the numbers are the correct size, the sample numbers which are added in this case are collected inputs to a layer multiplied by random weights of that layer. The percent error is obtained from these multiple additions and is introduced in between layers in the same way as the multiply.<might need to clarify again>
 
 BIG IMAGE OF LAYERS WITH PERCENT ERROR INTERRUPTIONS
 
-\begin{center}
- \begin{tabular}{||c c c||} 
- \hline
- IC Compiler & SPICE w/o Parasitics & SPICE w/ Parasitics\\ [0.5ex] 
- \hline\hline
- 0.082 ns & 0.025 ns & 0.044 ns\\ 
- \hline
-\end{tabular} \\
-\bf{Arrival Time Delays}
-\end{center}
+
+
+\hfill
 
 \section{Results}
 	\indent Figure X shows the power and area versus the number of bits approximated for the LPO adder. As the figure indicates, there is almost a linear relationship between the number of bits approximated versus power. Practically, this indicates that the optimal savings in power and area is dependent on how much the application can tolerate error. Figure X shows how performance can be optimized with number of bits. It is important to note however, that this frequency is an estimate obtained from how much positive slack was obtained given a fixed period. Synopsys Design Compiler would need to be re-run at the optimal slack to obtain power and area specifications at that frequency. In this paper, we chose to use a fixed period in order to compare power and area metrics across different implementations of the adder. (maybe include how many times power decreases with each bit or sth?) \\
@@ -144,11 +137,69 @@ BIG IMAGE OF LAYERS WITH PERCENT ERROR INTERRUPTIONS
 	\indent Figure X shows the power and area versus VBL of the approximate multiplier. As expected, power and area are reduced as the VBL is increased. What is interesting to note, however, is the estimated operating frequency (Figure X) barely changes when the VBL is under 30. Significant impact to the critical path only occurs at very high VBL values.
 
 	\indent We found that with careful selection of a $K$ value, CNN calculations can be significantly reduced in power, speed, and chip area without significantly reducing neural net accuracy.
+	
 %		Mult
+\begin{center}
+ \begin{tabular}{||c|c|c||} 
+ \hline
+ Num Bits Approx & CNN Accuracy\\ [0.5ex] 
+ \hline
+	4& 0.9155 \\
+ \hline
+	6& 0.9158 \\
+ \hline
+	8& 0.9156 \\
+ \hline
+	10& 0.9167 \\
+ \hline
+	12& 0.9138 \\
+ \hline
+	14& 0.9120 \\
+ \hline
+	16& 0.8999 \\ 
+ \hline
+	18& 0.8655 \\ 
+ \hline
+	20& 0.7524 \\ 
+ \hline
+	22& 0.3742 \\ 
+ \hline
+\end{tabular} \\
+\hfill \\
+\bf{Multiply Approximated CNN Accuracy}
+\end{center}
+
 %		Adder
+\begin{center}
+ \begin{tabular}{||c|c|c||} 
+ \hline
+ Num Bits Approx & CNN Accuracy\\ [0.5ex] 
+ \hline
+	4& 0.9157 \\
+ \hline
+	8& 0.9155 \\
+ \hline
+	16& 0.915 \\
+ \hline
+	20& 0.9145 \\
+ \hline
+	24& 0.8917 \\
+ \hline
+	25& 0.8835 \\
+ \hline
+	26& 0.8657 \\ 
+ \hline
+	27& 0.3519 \\ 
+ \hline
+	28& 0.3519 \\ 
+ \hline
+\end{tabular} \\
+\hfill \\
+\bf{Add Approximated CNN Accuracy}
+\end{center}
+
 %		both
-
-
+ADDER MULT PICTURE HEREEEEEE
 
 \
 \section{Conclusion}
