@@ -1,0 +1,370 @@
+notes:
+MULT
+max, mean for conv1 4b
+0.030303030303
+6.13795538733e-06
+
+max, mean for conv2 4b
+1.0
+0.000480041998856
+
+max, mean for fc1 4b
+1.0
+0.000106102828216
+
+max, mean for conv1 6b
+0.118457300275
+2.572719388e-05
+
+max, mean for conv2 6b
+1.0
+0.00159926699986
+
+max, mean for fc1 6b
+1.0
+0.000366092170597
+
+max, mean for conv1 8b
+0.295735900963
+0.000106432876177
+
+max, mean for conv2 8b
+1.0
+0.00531644545379
+
+max, mean for fc1 8b
+1.0
+0.00113827332874
+
+max, mean for conv1 10b
+1.0
+0.000408337236432
+
+max, mean for conv2 10b
+1.0
+0.0162889636711
+
+max, mean for fc1 10b
+1.0
+0.00351482097529
+
+max, mean for conv1 12b
+1.0
+0.00150753894844
+
+max, mean for conv2 12b
+1.0
+0.0453791575676
+
+max, mean for fc1 12b
+1.0
+0.0106328973843
+
+max, mean for conv1 14b
+1.0
+0.00541747468839
+
+max, mean for conv2 14b
+1.0
+0.104318021699
+
+max, mean for fc1 14b
+1.0
+0.030856912238
+
+max, mean for conv1 16b
+1.0
+0.0177078966819
+
+max, mean for conv2 16b
+1.0
+0.238183339181
+
+max, mean for fc1 16b
+1.0
+0.0840926009688
+
+max, mean for conv1 18b
+1.0
+0.0536998697588
+
+max, mean for conv2 18b
+1.0
+0.465166032546
+
+max, mean for fc1 18b
+1.0
+0.210176892416
+
+max, mean for conv1 20b
+1.0
+0.14356139782
+
+max, mean for conv2 20b
+1.0
+0.751143077992
+
+max, mean for fc1 20b
+1.0
+0.458769524701
+
+max, mean for conv1 22b
+1.0
+0.334893193085
+
+max, mean for conv2 22b
+1.0
+0.937871956005
+
+max, mean for fc1 22b
+1.0
+0.801297380631
+
+max, mean for conv1 24b
+1.0
+0.14356139782
+
+max, mean for conv2 24b
+1.0
+0.751143077992
+
+max, mean for fc1 24b
+1.0
+0.458769524701
+
+
+
+
+ADD
+max, mean for conv1 28b
+0.925811244035
+0.839715927993
+
+max, mean for conv2 28b
+0.937684244732
+0.696848282028
+
+max, mean for fc1 28b
+0.967222651607
+0.910858232598
+
+max, mean for conv1 27b 
+0.925811244035
+0.839715927993
+
+max, mean for conv2 27b
+0.937684244732
+0.696848282028
+
+max, mean for fc1 27b
+0.967222651607
+0.910858232598
+
+max, mean for conv1 26b
+0.925811244035
+0.347819387832
+
+max, mean for conv2 26b
+0.937684244732
+0.696848282028
+
+max, mean for fc1 26b
+0.967222651607
+0.910806576013
+
+max, mean for conv1 25b
+0.925811244035
+0.347819387832
+
+max, mean for conv2 25b
+0.937684244732
+0.69610653819
+
+max, mean for fc1 25b
+0.967222651607
+0.876695212933
+
+max, mean for conv1 24b
+0.422072322026
+0.041714972736
+
+max, mean for conv2 24b
+0.937684244732
+0.649745321647
+
+max, mean for fc1 24b
+0.967222651607
+0.60141889068
+
+max, mean for conv1 20b
+0.0259368385959
+0.000178069823206
+
+max, mean for conv2 20b
+0.93656737636
+0.0827966756604
+
+max, mean for fc1 20b
+0.167863096181
+0.0091421074762
+
+max, mean for conv1 16b
+0.00127365677192
+-5.59942392509e-06
+
+max, mean for conv2 16b
+0.912093926743
+0.00260098210978
+
+max, mean for fc1 16b
+0.0070762759946
+9.03772860786e-05
+
+max, mean for conv1 8b
+0.00023549347246
+6.39293037808e-05
+
+max, mean for conv2 8b
+0.451064199713
+0.00193007959594
+
+max, mean for fc1 8b
+0.00207987089909
+0.000402175051947
+
+max, mean for conv1 4b
+1.6760369159e-05
+3.97747909755e-06
+
+max, mean for conv2 4b
+0.0437446939878
+0.00013024532596
+
+max, mean for fc1 4b
+0.000118103065261
+2.50188804292e-05
+
+
+
+CNN
+no approx
+0.9157
+
+
+
+add 8b
+0.9155
+
+add 16b
+0.915
+
+add 20b
+0.9145
+
+add 24b
+0.8917
+
+add 25b
+0.8835
+
+add 26b
+0.8657
+
+add 27b
+0.3519
+
+add 28b
+0.3519
+
+
+mult 4b
+0.9155
+
+mult 6b
+0.91579
+
+mult 8b
+0.9156
+
+mult 10b
+0.9167
+
+mult 12b
+0.91379
+
+mult 14b
+0.9120
+
+mult 16b
+0.8999
+
+mult 18b
+0.8655
+
+mult 20b
+0.7524
+
+mult 22b
+0.3742
+
+add 4b mult 4b
+0.9155
+
+add 8b mult 8b
+0.91579
+
+add 16b mult 16b
+0.9003
+
+add 20b mult 20b
+0.7516
+
+add 20b mult 14b
+0.9106
+
+add 24b mult 14b
+0.8821
+
+add 26b mult 14b
+0.8449
+
+add 26b mult 8b
+0.8646
+
+add 26b mult 20b
+0.1472
+
+add 24b mult 4b
+0.8912
+
+add 24b mult 12b
+0.8864
+
+add 24b mult 16b
+0.8620
+
+add 20b mult 8b
+0.9149
+
+add 20b mult 16b
+0.8991
+
+add 16b mult 4b
+0.9150
+
+add 16b mult 12b
+0.9140
+
+add 8b mult 14b
+0.9120
+
+add 8b mult 20b
+0.7521
+
+add 4b mult 12b
+0.91379
+
+add 4b mult 16b
+0.8999
+
+
