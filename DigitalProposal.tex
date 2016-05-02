@@ -103,7 +103,7 @@ We obtain percent error individually for each layer, because each layer does a d
 The addition approximation error is obtained similarly, but it takes into account that there are multiple additions. Due to the nature of the LOR approximate adder, the mean error is very low, so it is an advantage that there are multiple approximated additions. For example, the $conv_2$ layer does a dot product between 25 numbers, so those 24 additions are likely to result in a lower error overall since the approximation is likely to over and underestimate and reduce some of the error. To account for this, addition percent error is calculated by approximately adding 25 numbers for both $conv_1$ and $conv_2$ and adding 80 numbers for $fc_1$. The sample numbers to be added are sampled inputs to a layer multiplied by random weights of that layer. This is to make sure that the sample addition is performed on the correct range. The percent error is obtained from these iterated additions and is introduced in between layers in the same way as the multiply. 
 
 \begin{figure}[h]
-\caption{Num of Approximated Bits vs. Total Power and Area, Multiplier}
+\caption{Percent Error insertion into Lenet}
 \centering
 \includegraphics[width=0.3\textwidth]{Figure}
 \end{figure}
@@ -120,18 +120,18 @@ The addition approximation error is obtained similarly, but it takes into accoun
 \begin{figure}[t]
 \caption{Num of Approximated Bits vs. Total Power and Area, Adder}
 \centering
-\includegraphics[width=0.5\textwidth]{Adder_PandA}
+\includegraphics[width=0.55\textwidth]{Adder_PandA}
 \caption{Num of Approximated Bits vs. Estimated Operating Freq, Adder}
 \centering
-\includegraphics[width=0.5\textwidth]{Adder_OpFreq}
+\includegraphics[width=0.55\textwidth]{Adder_OpFreq}
 \end{figure}
 \begin{figure}[t]
 \caption{Num of Approximated Bits vs. Total Power and Area, Multiplier}
 \centering
-\includegraphics[width=0.5\textwidth]{Multiplier_PandA}
+\includegraphics[width=0.55\textwidth]{Multiplier_PandA}
 \caption{Num of Approximated Bits vs. Estimated Operating Freq, Multiplier}
 \centering
-\includegraphics[width=0.5\textwidth]{Multiplier_OpFreq}
+\includegraphics[width=0.55\textwidth]{Multiplier_OpFreq}
 \end{figure}
 
 	\indent Figure X shows the power and area versus vertical breaking line of the approximate multiplier. As expected, power and area are reduced as the vertical breaking line is increased. What is interesting to note, however, is the estimated operating frequency (Figure X) barely changes when the vertical breaking line is under 30. Significant impact to the critical path only occurs at very high vertical breaking line values.
