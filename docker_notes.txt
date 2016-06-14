@@ -1,0 +1,18 @@
+Start a container based on the Caffe image, with a mounted folder at /home/Documents/testfolder:
+sudo docker run -it --name caffe-test -v /home/Documents/testfolder:/docker_swap:z tleyden5iwx/caffe-cpu-master /bin/bash
+
+List the current containers:
+sudo docker pa -a
+
+Start a stopped container:
+sudo docker start caffe-test
+
+Enter a started container:
+sudo docker attach caffe-test
+
+Save the changes made in a container as an image:
+sudo docker commit caffe-test
+
+Start a new container based on the last image with all the changes in it:
+sudo docker run -it --name caffe-test2 -v /home/Documents/testfolder:/docker_swap:z d3ff15a9176f /bin/bash
+

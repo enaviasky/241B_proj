@@ -1,0 +1,61 @@
+add 4b mult 4b
+0.9155
+
+add 8b mult 8b
+0.91579
+
+add 16b mult 16b
+0.9003
+
+add 20b mult 20b
+0.7516
+
+add 20b mult 14b
+0.9106
+
+add 24b mult 14b
+0.8821
+
+add 26b mult 14b
+0.8449
+
+add 26b mult 8b
+0.8646
+
+add 26b mult 20b
+0.1472
+
+add 24b mult 4b
+0.8912
+
+add 24b mult 12b
+0.8864
+
+add 24b mult 16b
+0.8620
+
+add 20b mult 8b
+0.9149
+
+add 20b mult 16b
+0.8991
+
+add 16b mult 4b
+0.9150
+
+add 16b mult 12b
+0.9140
+
+add 8b mult 14b
+0.9120
+
+add 8b mult 20b
+0.7521
+
+add 4b mult 12b
+0.91379
+
+add 4b mult 16b
+0.8999
+
+
